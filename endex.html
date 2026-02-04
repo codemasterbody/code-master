@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster | صانع محتوى برمجة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #0ea5e9;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --success: #10b981;
+            --danger: #ef4444;
+            --gray: #64748b;
+            --shadow: 0 10px 25px rgba(0,0,0,0.1);
+            --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* شريط التنقل */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .logo span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--gradient);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        /* الهيرو */
+        .hero {
+            padding: 180px 5% 100px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: var(--gradient);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.2;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .code-editor {
+            background: var(--dark);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transform: perspective(1000px) rotateY(-10deg);
+            transition: var(--transition);
+        }
+
+        .code-editor:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        .editor-header {
+            background: #2d3748;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .editor-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .editor-content {
+            padding: 2rem;
+            font-family: 'Courier New', monospace;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .code-keyword { color: #60a5fa; }
+        .code-function { color: #34d399; }
+        .code-string { color: #fbbf24; }
+        .code-comment { color: #94a3b8; }
+
+        /* الأقسام */
+        .section {
+            padding: 100px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* محتوى اليوتيوب */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid #e2e8f0;
+        }
+
+        .content-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .content-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .play-button:hover {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-category {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .video-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .stat-icon {
+            margin-right: 5px;
+        }
+
+        /* المهارات */
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .skill-item:last-child {
+            border-bottom: none;
+        }
+
+        .skill-bar {
+            width: 100px;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 4px;
+        }
+
+        /* الجدول الزمني */
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 50%;
+            transform: translateX(50%);
+            width: 4px;
+            background: var(--gradient);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: calc(50% - 30px);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 30px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: calc(50% + 30px);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* المشاريع */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-preview {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-tech {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: rgba(255,255,255,0.9);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            color: var(--primary-dark);
+        }
+
+        /* الموارد */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            background: var(--gradient);
+            color: white;
+        }
+
+        .resource-card:hover * {
+            color: white !important;
+        }
+
+        .resource-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* التواصل */
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* الفوتر */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 5% 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links h3 {
+            margin-bottom: 1.5rem;
+            color: #cbd5e1;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8;
+        }
+
+        /* التجاوب */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .timeline::before {
+                right: 30px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-right: 30px !important;
+            }
+        }
+
+        /* رسوم متحركة */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* تخصيص شريط التمرير */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <i class="fas fa-code"></i>
+            <span>CodeMaster</span>
+        </a>
+        
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <div class="nav-links" id="navLinks">
+            <a href="#home">الرئيسية</a>
+            <a href="#content">المحتوى</a>
+            <a href="#skills">المهارات</a>
+            <a href="#projects">المشاريع</a>
+            <a href="#resources">الموارد</a>
+            <a href="#contact">التواصل</a>
+            <a href="https://youtube.com" target="_blank" class="cta-button">
+                <i class="fab fa-youtube"></i> قناتي
+            </a>
+        </div>
+    </nav>
+
+    <!-- قسم الهيرو -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-text animate-on-scroll">
+                <h1>أهلاً بك في عالم البرمجة المتكامل 🚀</h1>
+                <p>
+                    أنا صانع محتوى متخصص في تطوير الويب (Frontend & Backend). 
+                    أشارك معكم شغفي بالبرمجة من خلال دروس عملية، مشاريع حقيقية، 
+                    ونصائح لتطوير مساركم المهني في عالم التكنولوجيا.
+                </p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">250+</div>
+                        <div class="stat-label">فيديو تعليمي</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">متابع</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">مشروع عملي</div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <a href="#content" class="cta-button">
+                        <i class="fas fa-play-circle"></i> ابدأ التعلم
+                    </a>
+                    <a href="#contact" class="cta-button" style="background: var(--dark);">
+                        <i class="fas fa-handshake"></i> تعاون معي
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual animate-on-scroll">
+                <div class="code-editor">
+                    <div class="editor-header">
+                        <div class="editor-dot dot-red"></div>
+                        <div class="editor-dot dot-yellow"></div>
+                        <div class="editor-dot dot-green"></div>
+                    </div>
+                    <div class="editor-content">
+                        <span class="code-keyword">const</span> developer = {<br>
+                        &nbsp;&nbsp;<span class="code-keyword">name</span>: <span class="code-string">"محمد العلي"</span>,<br>
+                        &nbsp;&nbsp;<span class="code-keyword">specialty</span>: [<span class="code-string">"Frontend"</span>, <span class="code-string">"Backend"</span>],<br>
+                        &nbsp;&nbsp;<span class="code-keyword">experience</span>: <span class="code-string">"5+ سنوات"</span>,<br>
+                        &nbsp;&nbsp;<span class="code-keyword">mission</span>: <span class="code-function">()</span> => <span class="code-string">"تعليم البرمجة للجميع"</span><br>
+                        };<br><br>
+                        <span class="code-comment">// أهلاً بك في رحلتي التعليمية</span><br>
+                        <span class="code-keyword">await</span> developer.<span class="code-function">startLearningJourney</span>();
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- المحتوى التعليمي -->
+    <section class="section" id="content" style="background: white;">
+        <div class="section-title animate-on-scroll">
+            <h2>📺 المحتوى التعليمي</h2>
+            <p>أحدث الدروس والشروحات على قناتي في اليوتيوب</p>
+        </div>
+        
+        <div class="content-grid">
+            <!-- فيديو 1 -->
+            <div class="content-card animate-on-scroll">
+                <div class="video-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="React Advanced">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-category">Frontend</span>
+                    <h3 class="video-title">إتقان React.js - حلقات متقدمة</h3>
+                    <p>تعلم تقنيات متقدمة في React مثل Context API، Custom Hooks، وPerformance Optimization.</p>
+                    <div class="video-stats">
+                        <span><i class="fas fa-eye stat-icon"></i> 25K مشاهدة</span>
+                        <span><i class="far fa-clock stat-icon"></i> 45 دقيقة</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- فيديو 2 -->
+            <div class="content-card animate-on-scroll">
+                <div class="video-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Node.js API">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-category">Backend</span>
+                    <h3 class="video-title">بناء REST API متكامل مع Node.js</h3>
+                    <p>أنشئ API احترافي مع Authentication، Validation، وبطاقة MongoDB.</p>
+                    <div class="video-stats">
+                        <span><i class="fas fa-eye stat-icon"></i> 18K مشاهدة</span>
+                        <span><i class="far fa-clock stat-icon"></i> 60 دقيقة</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- فيديو 3 -->
+            <div class="content-card animate-on-scroll">
+                <div class="video-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800" alt="Full Stack">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-category">Full Stack</span>
+                    <h3 class="video-title">مشروع متكامل من الصفر إلى الإطلاق</h3>
+                    <p>بناء تطبيق ويب كامل باستخدام MERN Stack مع Deploy على Heroku.</p>
+                    <div class="video-stats">
+                        <span><i class="fas fa-eye stat-icon"></i> 32K مشاهدة</span>
+                        <span><i class="far fa-clock stat-icon"></i> 90 دقيقة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="https://youtube.com" target="_blank" class="cta-button">
+                <i class="fab fa-youtube"></i> تصفح جميع الفيديوهات
+            </a>
+        </div>
+    </section>
+
+    <!-- المهارات التقنية -->
+    <section class="section" id="skills">
+        <div class="section-title animate-on-scroll">
+            <h2>💼 المهارات التقنية</h2>
+            <p>مجموعة المهارات التي أتخصص فيها وأعلمها</p>
+        </div>
+        
+        <div class="skills-container">
+            <!-- Frontend Skills -->
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>تطوير الواجهات الأمامية</h3>
+                </div>
+                <ul class="skill-list">
+                    <li class="skill-item">
+                        <span>React.js / Next.js</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>Vue.js / Nuxt.js</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>TypeScript</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>Tailwind CSS</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>Web Performance</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 88%"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Backend Skills -->
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>تطوير الواجهات الخلفية</h3>
+                </div>
+                <ul class="skill-list">
+                    <li class="skill-item">
+                        <span>Node.js / Express</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 92%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>Python / Django</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>PostgreSQL / MongoDB</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>GraphQL / REST APIs</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>DevOps & Deployment</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Tools & Others -->
+            <div class="skill-category animate-on-scroll">
+                <div class="skill-header">
+                    <div class="skill-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>الأدوات والمهارات الأخرى</h3>
+                </div>
+                <ul class="skill-list">
+                    <li class="skill-item">
+                        <span>Git & GitHub</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>Docker & CI/CD</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>Testing (Jest, Cypress)</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>UI/UX Design</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </li>
+                    <li class="skill-item">
+                        <span>Technical Writing</span>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- المشاريع العملية -->
+    <section class="section" id="projects" style="background: white;">
+        <div class="section-title animate-on-scroll">
+            <h2>🚀 المشاريع العملية</h2>
+            <p>تطبيقات حقيقية أنشأتها لأوضح المفاهيم البرمجية</p>
+        </div>
+        
+        <div class="projects-grid">
+            <!-- مشروع 1 -->
+            <div class="project-card animate-on-scroll">
+                <div class="project-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Stripe</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>منصة التعلم الإلكتروني</h3>
+                    <p>منصة متكاملة للتعلم عن بعد مع نظام دفع، إدارة محتوى، وتتبع التقدم.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> الكود
+                        </a>
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i> العرض الحي
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- مشروع 2 -->
+            <div class="project-card animate-on-scroll">
+                <div class="project-preview" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="project-tech">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Socket.io</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>نظام مراسلة في الوقت الحقيقي</h3>
+                    <p>تطبيق محادثات متقدم مع مكالمات صوتية وفيديو، ومشاركة ملفات.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> الكود
+                        </a>
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i> العرض الحي
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- مشروع 3 -->
+            <div class="project-card animate-on-scroll">
+                <div class="project-preview" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="project-tech">
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">GraphQL</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>متجر إلكتروني متقدم</h3>
+                    <p>منصة تجارة إلكترونية مع نظام توصيات ذكي وإدارة مخزون متطورة.</p>
+                    <div class="project-links">
+                        <a href="#" class="project-link">
+                            <i class="fab fa-github"></i> الكود
+                        </a>
+                        <a href="#" class="project-link">
+                            <i class="fas fa-external-link-alt"></i> العرض الحي
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#" class="cta-button">
+                <i class="fas fa-briefcase"></i> عرض جميع المشاريع
+            </a>
+        </div>
+    </section>
+
+    <!-- الموارد المجانية -->
+    <section class="section" id="resources">
+        <div class="section-title animate-on-scroll">
+            <h2>🎁 الموارد المجانية</h2>
+            <p>مواد تعليمية مجانية لمساعدتك في رحلة التعلم</p>
+        </div>
+        
+        <div class="resources-grid">
+            <div class="resource-card animate-on-scroll">
+                <div class="resource-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>ملفات PDF تعليمية</h3>
+                <p>مجموعة شاملة من الكتب والدروس في Frontend و Backend</p>
+                <button class="cta-button" style="margin-top: 1rem; background: var(--dark);">
+                    تحميل الآن
+                </button>
+            </div>
+            
+            <div class="resource-card animate-on-scroll">
+                <div class="resource-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>قوالب جاهزة</h3>
+                <p>أكواد جاهزة للمشاريع يمكنك استخدامها وتعديلها</p>
+                <button class="cta-button" style="margin-top: 1rem; background: var(--dark);">
+                    الحصول على القوالب
+                </button>
+            </div>
+            
+            <div class="resource-card animate-on-scroll">
+                <div class="resource-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3>دورات مجانية</h3>
+                <p>دورات كاملة مجانية للمبتدئين والمتقدمين</p>
+                <button class="cta-button" style="margin-top: 1rem; background: var(--dark);">
+                    مشاهدة الدورات
+                </button>
+            </div>
+            
+            <div class="resource-card animate-on-scroll">
+                <div class="resource-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>أدوات المطور</h3>
+                <p>مجموعة من الأدوات والنصائح لزيادة إنتاجيتك</p>
+                <button class="cta-button" style="margin-top: 1rem; background: var(--dark);">
+                    استكشاف الأدوات
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- التواصل -->
+    <section class="section" id="contact" style="background: white;">
+        <div class="section-title animate-on-scroll">
+            <h2>📞 تواصل معي</h2>
+            <p>أحب سماع آرائكم وتعاون مع المؤسسات التعليمية</p>
+        </div>
+        
+        <div class="contact-container">
+            <div class="contact-info animate-on-scroll">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h3>البريد الإلكتروني</h3>
+                        <p>contact@codemaster.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div>
+                        <h3>قناة اليوتيوب</h3>
+                        <p>youtube.com/c/CodeMaster</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <div>
+                        <h3>لينكدإن</h3>
+                        <p>linkedin.com/in/codemaster</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div>
+                        <h3>جيت هاب</h3>
+                        <p>github.com/codemaster</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                </div>
+            </div>
+            
+            <div class="contact-form animate-on-scroll">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">الاسم الكامل</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">الموضوع</label>
+                        <input type="text" id="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">الرسالة</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="cta-button" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i> إرسال الرسالة
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">CodeMaster</div>
+                <p>صانع محتوى متخصص في تطوير الويب، أساعد المطورين العرب على تطوير مهاراتهم وبناء مستقبلهم في التكنولوجيا.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#content">المحتوى</a></li>
+                    <li><a href="#skills">المهارات</a></li>
+                    <li><a href="#projects">المشاريع</a></li>
+                    <li><a href="#resources">الموارد</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>التقنيات</h3>
+                <ul>
+                    <li><a href="#">Frontend Development</a></li>
+                    <li><a href="#">Backend Development</a></li>
+                    <li><a href="#">Full Stack</a></li>
+                    <li><a href="#">DevOps</a></li>
+                    <li><a href="#">UI/UX Design</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h3>النشرة البريدية</h3>
+                <p>اشترك ليصلك كل جديد من دروس ونصائح برمجية.</p>
+                <div style="display: flex; margin-top: 1rem;">
+                    <input type="email" placeholder="بريدك الإلكتروني" style="flex: 1; padding: 0.8rem; border: none; border-radius: 4px 0 0 4px;">
+                    <button class="cta-button" style="border-radius: 0 4px 4px 0; padding: 0.8rem 1.5rem;">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2024 CodeMaster. جميع الحقوق محفوظة.</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">صمم بحب ❤️ لمساعدة مجتمع المطورين العرب</p>
+        </div>
+    </footer>
+
+    <script>
+        // تنفيذ القائمة المتحركة
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // إغلاق القائمة عند النقر على رابط
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+
+        // تحريك العناصر عند التمرير
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // استدعاء التحريك عند التحميل وعند التمرير
+        window.addEventListener('load', animateOnScroll);
+        window.addEventListener('scroll', animateOnScroll);
+
+        // نموذج التواصل
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // محاكاة إرسال النموذج
+            const name = document.getElementById('name').value;
+            alert(`شكراً ${name}! سيتم الرد على رسالتك قريباً.`);
+            
+            // إعادة تعيين النموذج
+            this.reset();
+            
+            // تأثير النجاح
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> تم الإرسال!';
+            submitBtn.style.background = 'var(--success)';
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.style.background = '';
+            }, 3000);
+        });
+
+        // عدادات متحركة
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const animate = () => {
+                    const value = +counter.getAttribute('data-target');
+                    const data = +counter.innerText.replace('+', '');
+                    
+                    const time = value / speed;
+                    if(data < value) {
+                        counter.innerText = Math.ceil(data + time) + '+';
+                        setTimeout(animate, 1);
+                    } else {
+                        counter.innerText = value + '+';
+                    }
+                };
+                
+                // تعيين القيم الهدف
+                if (counter.innerText.includes('250')) {
+                    counter.setAttribute('data-target', '250');
+                } else if (counter.innerText.includes('50')) {
+                    counter.setAttribute('data-target', '50');
+                } else if (counter.innerText.includes('100')) {
+                    counter.setAttribute('data-target', '100');
+                }
+                
+                animate();
+            });
+        }
+
+        // بدء العدادات عند التمرير للقسم
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.hero-stats'));
+
+        // تغيير لون شريط التنقل عند التمرير
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // تأثير النقر على أزرار التشغيل
+        document.querySelectorAll('.play-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const videoTitle = this.closest('.content-card').querySelector('.video-title').textContent;
+                alert(`سيتم تشغيل الفيديو: ${videoTitle}\n\nهذا نموذج توضيحي، في التطبيق الحقيقي سيتم تشغيل الفيديو.`);
+                
+                // تأثير مرئي
+                this.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                this.style.background = 'white';
+                
+                setTimeout(() => {
+                    this.style.transform = 'translate(-50%, -50%) scale(1)';
+                    this.style.background = 'rgba(255,255,255,0.9)';
+                }, 300);
+            });
+        });
+
+        // تأثير تحميل الصفحة
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // إضافة مؤشر التمرير
+        const progressBar = document.createElement('div');
+        progressBar.style.cssText = `
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 4px;
+            background: var(--gradient);
+            z-index: 9999;
+            transition: width 0.3s;
+        `;
+        document.body.appendChild(progressBar);
+
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // تأثيرات إضافية للأزرار
+        document.querySelectorAll('.cta-button, .project-link, .tool-btn').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // إضافة تأثير الكتابة في محرر الكود
+        const codeEditor = document.querySelector('.editor-content');
+        const originalCode = codeEditor.innerHTML;
+        let typedCode = '';
+        let i = 0;
+
+        function typeCode() {
+            if (i < originalCode.length) {
+                typedCode += originalCode.charAt(i);
+                codeEditor.innerHTML = typedCode + '<span class="cursor">|</span>';
+                i++;
+                setTimeout(typeCode, 30);
+            } else {
+                // إضافة وميض للعلامة النهائية
+                setInterval(() => {
+                    const cursor = codeEditor.querySelector('.cursor');
+                    if (cursor) {
+                        cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+                    }
+                }, 500);
+            }
+        }
+
+        // بدء تأثير الكتابة عند تحميل الصفحة
+        setTimeout(typeCode, 1000);
+
+        // إضافة مؤشر القسم النشط في التنقل
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // تحسين تجربة الهواتف
+        if ('ontouchstart' in window) {
+            document.body.classList.add('touch-device');
+            
+            // إضافة تأثير اللمس
+            document.querySelectorAll('.content-card, .project-card, .resource-card').forEach(card => {
+                card.style.cursor = 'pointer';
+            });
+        }
+    </script>
+</body>
+</html>
